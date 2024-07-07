@@ -19,8 +19,8 @@ public class Main {
     }
 
     private static void cargarDatosDesdeCSV() {
-        //gestorProyectos.cargarProyectosDesdeCSV("src/main/resources/proyectos.csv");
-        //gestorUsuarios.cargarUsuariosDesdeCSV("src/main/resources/usuarios.csv");
+        gestorProyectos.cargarProyectosDesdeCSV("src/resources/proyectos.csv");
+        //gestorUsuarios.cargarUsuariosDesdeCSV("src/resources/usuarios.csv");
     }
 
     private static void mostrarMenuLogeo() {
@@ -156,7 +156,7 @@ public class Main {
                     // Implementar la lógica para buscar un proyecto
                     break;
                 case 6:
-                    // Implementar la lógica para listar todos los proyectos
+                    gestorProyectos.listarProyectos();
                     break;
                 case 7:
                     return; // Volver al menú principal

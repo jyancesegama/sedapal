@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -127,31 +128,33 @@ public class GestorProyectos {
       System.out.println("No hay proyectos registrados.");
     } else {
       System.out.println("\nListado de Proyectos:");
+      System.out.println("Id \t Nombre \t\t\t Etapa");
       for (Proyecto proyecto : proyectos) {
-        System.out.println(proyecto);
+        System.out.printf("%s \t %s \t %s \n",proyecto.getIdProyecto(), proyecto.getNombreProyecto().substring(0,15), proyecto.getEtapa());
       }
     }
   }
 
   // Método para cargar proyectos desde un archivo CSV
   public void cargarProyectosDesdeCSV(String rutaArchivo) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+
     try (BufferedReader reader = new BufferedReader(new FileReader(rutaArchivo))) {
       String linea;
-      while ((linea = reader.readLine()) != null) {
-        String[] datos = linea.split(",");
 
+      while ((linea = reader.readLine()) != null) {
+        String[] datos = linea.split(";");
         String nombreProyecto = datos[1].trim();
         String departamento = datos[2].trim();
         String provincia = datos[3].trim();
         String distrito = datos[4].trim();
-        double costoTotal = Double.parseDouble(datos[5].trim());
+        double costoTotal = Double.parseDouble(datos[5].length()>0?datos[5].trim() : "0");
         String etapa = datos[6].trim();
-        double avanceFisico = Double.parseDouble(datos[7].trim());
-        LocalDate fechaInicio = LocalDate.parse(datos[8].trim());
-        LocalDate fechaFin = LocalDate.parse(datos[9].trim());
+        double avanceFisico = Double.parseDouble(datos[7].length()>0?datos[7].trim() : "0");
+        LocalDate fechaInicio = LocalDate.parse(datos[8].trim(),formatter);
+        LocalDate fechaFin = LocalDate.parse(datos[9].trim(),formatter);
         String ubigeo = datos[10].trim();
         String contratistaConsultor = datos[11].trim();
-
         // Crear el proyecto y agregarlo a la lista
         int idProyecto = obtenerNuevoIdProyecto();
         Proyecto proyecto = new Proyecto(idProyecto, nombreProyecto, departamento, provincia,
