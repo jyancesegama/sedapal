@@ -1,0 +1,235 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": true,
+    "cutInterfaceStructures": true,
+    "cutDataStructures": true,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": false,
+    "hideInterfaceCalls": false, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "Main",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_1199917228 { 
+   	label=adminusuarios
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   GestorUsuarios1199917228[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)GestorUsuarios</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   usuarios: List&lt;Usuario&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ asignarRoles(idUsuario: int, roles: List&lt;String&gt;)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ autenticarUsuario(email: String, contraseña: String): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >- buscarUsuarioPorId(idUsuario: int): Usuario</TD></TR>
+<TR><TD ALIGN="LEFT" >+ cargarUsuariosDesdeCSV(rutaArchivo: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ crearUsuario(idUsuario: int, nombre: String, email: String, pass: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ editarUsuario(idUsuario: int, nuevosDatos: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ eliminarUsuario(idUsuario: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ obtenerNuevoIdUsuario(): int</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Usuario1199917228[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Usuario</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   email: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   idUsuario: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   nombre: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   password: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   roles: List&lt;String&gt; [0..*]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_193335905 { 
+   	label=adminproyectos
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   GestorProyectos193335905[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)GestorProyectos</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   proyectos: List&lt;Proyecto&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ buscarProyectoPorId(idProyecto: int): Proyecto</TD></TR>
+<TR><TD ALIGN="LEFT" >+ cargarProyectosDesdeCSV(rutaArchivo: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ crearProyecto()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ editarProyecto(idProyecto: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ eliminarProyecto(idProyecto: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ listarProyectos()</TD></TR>
+<TR><TD ALIGN="LEFT" >- obtenerNuevoIdProyecto(): int</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Proyecto193335905[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Proyecto</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   avanceFisico: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   contratistaConsultor: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   costoTotal: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   departamento: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   distrito: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   etapa: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   fechaFin: LocalDate [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   fechaInicio: LocalDate [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   idProyecto: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   nombreProyecto: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   provincia: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   ubigeo: String [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_2390489 { 
+   	label=Main
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   Main2390489[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Main</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- cargarDatosDesdeCSV()</TD></TR>
+<TR><TD ALIGN="LEFT" >- crearUsuario()</TD></TR>
+<TR><TD ALIGN="LEFT" >- login()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ main(args: String[])</TD></TR>
+<TR><TD ALIGN="LEFT" >- mostrarMenuLogeo()</TD></TR>
+<TR><TD ALIGN="LEFT" >- mostrarMenuPrincipal()</TD></TR>
+<TR><TD ALIGN="LEFT" >- mostrarMenuProyectos()</TD></TR>
+<TR><TD ALIGN="LEFT" >- mostrarMenuReportes()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_427039518 { 
+   	label=reportes
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   GeneradorReportes427039518[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)GeneradorReportes</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ generarReporteProyectosEnProceso(proyectos: List&lt;Proyecto&gt;)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ generarReporteProyectosTerminados(proyectos: List&lt;Proyecto&gt;)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ generarReporteResumen(proyectos: List&lt;Proyecto&gt;)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+'edges    
+GestorProyectos193335905 -> Proyecto193335905[label="proyectos
+[0..*]"];
+GestorUsuarios1199917228 -> Usuario1199917228[label="usuarios
+[0..*]"];
+Main2390489 -> GeneradorReportes427039518[label="mostrarMenuReportes() -> generarReporteResumen()"];
+    
+}
+@enduml
