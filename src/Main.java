@@ -179,16 +179,17 @@ public class Main {
             opcion = scanner.nextInt();
             scanner.nextLine(); // Limpiar buffer de entrada
 
+            List<Proyecto> proyectos = gestorProyectos.getProyectos();
+
             switch (opcion) {
                 case 1:
-                    List<Proyecto> proyectos = gestorProyectos.getProyectos();
-                    generadorReportes.generarReporteResumen(proyectos);
+                    generadorReportes.generarReporteProyectosEnProceso(proyectos);
                     break;
                 case 2:
-                    // Implementar la lógica para generar el reporte de proyectos terminados
+                    generadorReportes.generarReporteProyectosTerminados(proyectos);
                     break;
                 case 3:
-                    // Implementar la lógica para generar el reporte resumen
+                    generadorReportes.generarReporteResumen(proyectos);;
                     break;
                 case 4:
                     return; // Volver al menú principal
