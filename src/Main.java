@@ -8,18 +8,21 @@ import java.util.Scanner;
 
 public class Main {
 
+    //Generando instancias de cada clase
     private static final Scanner scanner = new Scanner(System.in);
-    private static final GestorProyectos gestorProyectos = new GestorProyectos();
-    private static final GestorUsuarios gestorUsuarios = new GestorUsuarios();
-    private static final GeneradorReportes generadorReportes = new GeneradorReportes();
+    private static final GestorProyectos GESTOR_PROYECTOS = new GestorProyectos();
+    private static final GestorUsuarios GESTOR_USUARIOS = new GestorUsuarios();
+    private static final GeneradorReportes GENERADOR_REPORTES = new GeneradorReportes();
 
+    //Renderiza los metodos
     public static void main(String[] args) {
         cargarDatosDesdeCSV();
         mostrarMenuLogeo();
     }
 
+    
     private static void cargarDatosDesdeCSV() {
-        gestorProyectos.cargarProyectosDesdeCSV("src/resources/proyectos.csv");
+        GESTOR_PROYECTOS.cargarProyectosDesdeCSV("src/resources/proyectos.csv");
         //gestorUsuarios.cargarUsuariosDesdeCSV("src/resources/usuarios.csv");
     }
 
@@ -59,7 +62,7 @@ public class Main {
         String contraseña = scanner.nextLine();
 
         // Lógica para autenticar al usuario
-        boolean autenticado = gestorUsuarios.autenticarUsuario(email, contraseña);
+        boolean autenticado = GESTOR_USUARIOS.autenticarUsuario(email, contraseña);
 
         if (autenticado) {
             System.out.println("¡Inicio de sesión exitoso!");
@@ -84,8 +87,8 @@ public class Main {
         // Aquí podrías implementar más campos del usuario según tus necesidades
 
         // Crear el usuario y agregarlo al gestor de usuarios
-        int idUsuario = gestorUsuarios.obtenerNuevoIdUsuario();
-        gestorUsuarios.crearUsuario(idUsuario, nombre, email,pass);
+        int idUsuario = GESTOR_USUARIOS.obtenerNuevoIdUsuario();
+        GESTOR_USUARIOS.crearUsuario(idUsuario, nombre, email,pass);
 
         System.out.println("Usuario creado correctamente.");
 
@@ -137,26 +140,34 @@ public class Main {
 
             switch (opcion) {
                 case 1:
-                    gestorProyectos.crearProyecto();
+                    GESTOR_PROYECTOS.crearProyecto();
                     break;
                 case 2:
                     // Implementar la lógica para editar un proyecto
+                    System.out.print("\nIngrese el ID del Proyecto: ");
+                    int id = scanner.nextInt();
+                    GESTOR_PROYECTOS.editarProyecto(id);
                     break;
                 case 3:
+                    //ELMINAR UN PROYECTO
                     System.out.print("\nIngrese el ID del Proyecto: ");
                     int idProyecto = scanner.nextInt();
-                    gestorProyectos.eliminarProyecto(idProyecto);
+                    GESTOR_PROYECTOS.eliminarProyecto(idProyecto);
                     break;
                 case 4:
+                //CAMBIAR ETAPA DE UN PROYECTO
                     System.out.print("\nIngrese el ID del Proyecto: ");
                     int idProyectoEtapa = scanner.nextInt();
-                    gestorProyectos.cambiarEtapaProyecto(idProyectoEtapa);
+                    GESTOR_PROYECTOS.cambiarEtapaProyecto(idProyectoEtapa);
                     break;
                 case 5:
                     // Implementar la lógica para buscar un proyecto
+                    System.out.print("\nIngrese el nombre del Proyecto: ");
+                    String nombreDeProyecto = scanner.nextLine();
+                    GESTOR_PROYECTOS.buscarProyectos(nombreDeProyecto);    
                     break;
                 case 6:
-                    gestorProyectos.listarProyectos();
+                    GESTOR_PROYECTOS.listarProyectos();
                     break;
                 case 7:
                     return; // Volver al menú principal
@@ -179,17 +190,17 @@ public class Main {
             opcion = scanner.nextInt();
             scanner.nextLine(); // Limpiar buffer de entrada
 
-            List<Proyecto> proyectos = gestorProyectos.getProyectos();
+            List<Proyecto> proyectos = GESTOR_PROYECTOS.getProyectos();
 
             switch (opcion) {
                 case 1:
-                    generadorReportes.generarReporteProyectosEnProceso(proyectos);
+                    GENERADOR_REPORTES.generarReporteProyectosEnProceso(proyectos);
                     break;
                 case 2:
-                    generadorReportes.generarReporteProyectosTerminados(proyectos);
+                    GENERADOR_REPORTES.generarReporteProyectosTerminados(proyectos);
                     break;
                 case 3:
-                    generadorReportes.generarReporteResumen(proyectos);;
+                    GENERADOR_REPORTES.generarReporteResumen(proyectos);;
                     break;
                 case 4:
                     return; // Volver al menú principal

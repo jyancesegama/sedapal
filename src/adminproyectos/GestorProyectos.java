@@ -28,6 +28,23 @@ public class GestorProyectos {
     }
   }
 
+  public void buscarProyectos (String nombreProyecto) {
+      List<Proyecto> proyectos = this.getProyectos();
+
+      for (Proyecto proyecto : proyectos) {
+          if (proyecto.getNombreProyecto().startsWith(nombreProyecto)) {
+              System.out.println("Proyecto encontrado");
+              System.out.println("Nombre: " + proyecto.getNombreProyecto());
+              System.out.println("Distrito: " + proyecto.getDistrito());
+              System.out.println("Fecha Inicio: " + proyecto.getFechaInicio());
+              System.out.println("Fecha Fin: " + proyecto.getFechaFin());
+              return;
+          }
+      }
+
+      System.out.println("Proyecto no encontrado.");
+  }
+
   // Método para crear un nuevo proyecto
   public void crearProyecto() {
 
@@ -56,8 +73,6 @@ public class GestorProyectos {
     double avanceFisico = scanner.nextDouble();
     scanner.nextLine();
 
-
-
     System.out.print("Ingrese la Fecha de Inicio: ");
     LocalDate fechaInicio = LocalDate.now();
 
@@ -82,24 +97,102 @@ public class GestorProyectos {
 
   // Método para editar los datos de un proyecto existente
   public void editarProyecto(int idProyecto) {
-    Proyecto proyecto = buscarProyectoPorId(idProyecto);
+    Proyecto proyecto = proyectos.get(idProyecto);
     if (proyecto != null) {
-      System.out.println("Proyecto editado correctamente.");
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("\nEditar el nombre del Proyecto (actual: " + proyecto.getNombreProyecto() + "): ");
+        String nombreProyecto = scanner.nextLine();
+        if (!nombreProyecto.isEmpty()) {
+            proyecto.setNombreProyecto(nombreProyecto);
+        }
+
+        System.out.print("Editar el Departamento (actual: " + proyecto.getDepartamento() + "): ");
+        String departamento = scanner.nextLine();
+        if (!departamento.isEmpty()) {
+            proyecto.setDepartamento(departamento);
+        }
+
+        System.out.print("Editar la Provincia (actual: " + proyecto.getProvincia() + "): ");
+        String provincia = scanner.nextLine();
+        if (!provincia.isEmpty()) {
+            proyecto.setProvincia(provincia);
+        }
+
+        System.out.print("Editar el Distrito (actual: " + proyecto.getDistrito() + "): ");
+        String distrito = scanner.nextLine();
+        if (!distrito.isEmpty()) {
+            proyecto.setDistrito(distrito);
+        }
+
+        System.out.print("Editar el Costo Total (actual: " + proyecto.getCostoTotal() + "): ");
+        String costoTotalInput = scanner.nextLine();
+        if (!costoTotalInput.isEmpty()) {
+            double costoTotal = Double.parseDouble(costoTotalInput);
+            proyecto.setCostoTotal(costoTotal);
+        }
+
+        System.out.print("Editar la Etapa (actual: " + proyecto.getEtapa() + "): ");
+        String etapa = scanner.nextLine();
+        if (!etapa.isEmpty()) {
+            proyecto.setEtapa(etapa);
+        }
+
+        System.out.print("Editar el Avance Fisico (actual: " + proyecto.getAvanceFisico() + "): ");
+        String avanceFisicoInput = scanner.nextLine();
+        if (!avanceFisicoInput.isEmpty()) {
+            double avanceFisico = Double.parseDouble(avanceFisicoInput);
+            proyecto.setAvanceFisico(avanceFisico);
+        }
+
+        System.out.print("Editar la Fecha de Inicio (actual: " + proyecto.getFechaInicio() + "): ");
+        String fechaInicioInput = scanner.nextLine();
+        if (!fechaInicioInput.isEmpty()) {
+            LocalDate fechaInicio = LocalDate.parse(fechaInicioInput);
+            proyecto.setFechaInicio(fechaInicio);
+        }
+
+        System.out.print("Editar el Fecha Fin (actual: " + proyecto.getFechaFin() + "): ");
+        String fechaFinInput = scanner.nextLine();
+        if (!fechaFinInput.isEmpty()) {
+            LocalDate fechaFin = LocalDate.parse(fechaFinInput);
+            proyecto.setFechaFin(fechaFin);
+        }
+
+        System.out.print("Editar el Ubigeo (actual: " + proyecto.getUbigeo() + "): ");
+        String ubigeo = scanner.nextLine();
+        if (!ubigeo.isEmpty()) {
+            proyecto.setUbigeo(ubigeo);
+        }
+
+        System.out.print("Editar el Contratista Consultor (actual: " + proyecto.getContratistaConsultor() + "): ");
+        String contratistaConsultor = scanner.nextLine();
+        if (!contratistaConsultor.isEmpty()) {
+            proyecto.setContratistaConsultor(contratistaConsultor);
+        }
+
+        System.out.println("Proyecto editado correctamente.");
     } else {
-      System.out.println("Proyecto no encontrado.");
+        System.out.println("Proyecto no encontrado.");
     }
-  }
+}
 
-  public void cambiarEtapaProyecto(int idProyecto) {
-    Proyecto proyecto = buscarProyectoPorId(idProyecto);
-    if (proyecto != null) {
-      System.out.println("Proyecto editado correctamente.");
-    } else {
-      System.out.println("Proyecto no encontrado.");
+
+    public void cambiarEtapaProyecto(int idProyecto) {
+      Proyecto proyecto = buscarProyectoPorId(idProyecto);
+      if (proyecto != null) {
+          Scanner scanner = new Scanner(System.in);
+      
+          System.out.print("La etapa actual del proyecto es: " + proyecto.getEtapa() + ". Ingrese la nueva etapa: ");
+          String nuevaEtapa = scanner.nextLine();
+      
+          proyecto.setEtapa(nuevaEtapa);
+      
+          System.out.println("La etapa del proyecto ha sido actualizada correctamente a: " + nuevaEtapa);
+      } else {
+          System.out.println("Proyecto no encontrado.");
+      }
     }
-  }
-
-
 
   // Método para eliminar un proyecto por su ID
   public void eliminarProyecto(int idProyecto) {
@@ -167,6 +260,8 @@ public class GestorProyectos {
       System.out.println("Error al cargar proyectos desde el archivo CSV: " + e.getMessage());
     }
   }
+
+
 
   // Getters y setters (opcional, dependiendo de las necesidades)
   public List<Proyecto> getProyectos() {
