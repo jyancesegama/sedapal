@@ -28,19 +28,19 @@ public class GestorProyectos {
     }
   }
 
-  public void buscarProyectos (String nombreProyecto) {
-      List<Proyecto> proyectos = this.getProyectos();
+  public void buscarProyectos (int idProyecto) {
+      Proyecto proyecto = buscarProyectoPorId(idProyecto);
 
-      for (Proyecto proyecto : proyectos) {
-          if (proyecto.getNombreProyecto().startsWith(nombreProyecto)) {
+      if (proyecto != null) {
               System.out.println("Proyecto encontrado");
               System.out.println("Nombre: " + proyecto.getNombreProyecto());
+              System.out.println("Provincia: " + proyecto.getProvincia());
               System.out.println("Distrito: " + proyecto.getDistrito());
               System.out.println("Fecha Inicio: " + proyecto.getFechaInicio());
               System.out.println("Fecha Fin: " + proyecto.getFechaFin());
+              System.out.println("Etapa: " + proyecto.getEtapa());
               return;
           }
-      }
 
       System.out.println("Proyecto no encontrado.");
   }
@@ -97,7 +97,7 @@ public class GestorProyectos {
 
   // Método para editar los datos de un proyecto existente
   public void editarProyecto(int idProyecto) {
-    Proyecto proyecto = proyectos.get(idProyecto);
+    Proyecto proyecto = buscarProyectoPorId(idProyecto);
     if (proyecto != null) {
         Scanner scanner = new Scanner(System.in);
 

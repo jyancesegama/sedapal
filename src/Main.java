@@ -23,7 +23,6 @@ public class Main {
     
     private static void cargarDatosDesdeCSV() {
         GESTOR_PROYECTOS.cargarProyectosDesdeCSV("src/resources/proyectos.csv");
-        //gestorUsuarios.cargarUsuariosDesdeCSV("src/resources/usuarios.csv");
     }
 
     private static void mostrarMenuLogeo() {
@@ -162,8 +161,8 @@ public class Main {
                     break;
                 case 5:
                     // Implementar la lógica para buscar un proyecto
-                    System.out.print("\nIngrese el nombre del Proyecto: ");
-                    String nombreDeProyecto = scanner.nextLine();
+                    System.out.print("\nIngrese el id del Proyecto: ");
+                    int nombreDeProyecto = scanner.nextInt();
                     GESTOR_PROYECTOS.buscarProyectos(nombreDeProyecto);    
                     break;
                 case 6:
